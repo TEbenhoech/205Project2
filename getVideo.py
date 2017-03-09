@@ -8,7 +8,7 @@ while(True):
 	blur = cv2.GaussianBlur(gray,(5,5),0)
     #Converts grayscale into only black or white.
     #Change second argument until camera only sees the hand
-	ret,thresh1 = cv2.threshold(blur,250,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)   #change to this to get the inv color
+	ret,thresh1 = cv2.threshold(blur,220,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)   #change to this to get the inv color
 	#ret,thresh1 = cv2.threshold(blur,250,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
   
 	img, contours, hierarchy = cv2.findContours(thresh1,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
@@ -36,6 +36,7 @@ while(True):
 	cv2.drawContours(drawing,[hull],0,(0,0,255),2)
 	cv2.imshow('binary',thresh1)
 	cv2.imshow('outline',drawing)
+	
 	
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
