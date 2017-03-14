@@ -30,11 +30,11 @@ def draw_circle(event,x,y,flags,param):
             cv2.rectangle(img,(ix,iy),(x,y),(0,255,0),-1)
         else:
             cv2.circle(img,(x,y),5,(0,0,255),-1)
-            
+#            
             
 img = np.zeros((height,width,3), np.uint8)
 cv2.namedWindow('image')
-cv2.setMouseCallback('image',draw_circle)
+#cv2.setMouseCallback('image',draw_circle)
 
 while(1):
    
@@ -69,7 +69,7 @@ while(1):
     
     both = cv2.add(frame, img)
     
-
+    #both = cv2.flip(both, 1)
     
     cv2.imshow('image',both)
 
