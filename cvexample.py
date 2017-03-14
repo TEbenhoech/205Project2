@@ -17,7 +17,7 @@ while(True):
     for(x,y,w,h) in hand:
         #draws a rectangle around the 
         cv2.rectangle(frame,(x,y),(x+w, y+h),(0,255,0),2)
-        
+
 
 
 
