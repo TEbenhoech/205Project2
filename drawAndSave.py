@@ -34,9 +34,11 @@ def draw_circle(event,x,y,flags,param):
 img = np.zeros((height,width,3), np.uint8)
 cv2.namedWindow('image')
 cv2.setMouseCallback('image',draw_circle)
+ui = cv2.imread("UI.png")
 
 while(1):
     ret, frame = video.read()
+    frame = cv2.add(frame,ui)
     both = cv2.add(frame, img)
     
     cv2.imshow('image',both)
