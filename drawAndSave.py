@@ -10,6 +10,9 @@ drawing = False # true if mouse is pressed
 mode = False # if True, draw rectangle. Press 'm' to toggle to curve
 ix,iy = -1,-1
 brushSize = 8
+b= 0
+g = 0
+r = 200
 
 # mouse callback function
 def draw_circle(event,x,y,flags,param):
@@ -52,9 +55,7 @@ while(1):
     
     blur = cv2.GaussianBlur(gray,(5,5),0)
     
-    b= 0
-    g = 0
-    r = 255
+    
 
     for(x,y,w,h) in hand:
         #draws a rectangle around the 
@@ -99,8 +100,68 @@ while(1):
     if bigCollision < 35:
         brushSize = 15
     
+    red = (35,40,0)
+    redX = posX - red[0]
+    redY = posY - red[1]
+    redCollision = math.sqrt((redX * redX)+ (redY * redY))
+    if redCollision < 35:
+        g = 0
+        r = 200
+        b = 0
+
+
+
     
-    cv2.circle(img,(posX,posY),brushSize,(0,0,255),-1)
+    orange = (35,90,0)
+    orangeX = posX - orange[0]
+    orangeY = posY - orange[1]
+    orangeCollision = math.sqrt((orangeX * orangeX)+ (orangeY * orangeY))
+    if orangeCollision < 35:
+        g = 100
+        r = 255
+        b = 0
+
+
+
+
+    yellow = (35,150,0)
+    yellowX = posX - yellow[0]
+    yellowY = posY - yellow[1]
+    yellowCollision = math.sqrt((yellowX * yellowX)+ (yellowY * yellowY))
+    if yellowCollision < 35:
+        g = 255
+        r = 255
+        b = 0
+    
+    green = (35,220,0)
+    greenX = posX - green[0]
+    greenY = posY - green[1]
+    greenCollision = math.sqrt((greenX * greenX)+ (greenY * greenY))
+    if greenCollision < 35:
+        g = 200
+        r = 0
+        b = 0
+
+    blue = (35,250,0)
+    blueX = posX - blue[0]
+    blueY = posY - blue[1]
+    blueCollision = math.sqrt((blueX * blueX)+ (blueY * blueY))
+    if blueCollision < 35:
+        g = 0
+        r = 0
+        b = 200
+    
+    violet = (35,360,0)
+    violetX = posX - violet[0]
+    violetY = posY - violet[1]
+    violetCollision = math.sqrt((violetX * violetX)+ (violetY * violetY))
+    if violetCollision < 35:
+        g = 0
+        r = 200
+        b = 255
+   
+    
+    cv2.circle(img,(posX,posY),brushSize,(b,g,r),-1)
     #cv2.imshow('image',img)
     k = cv2.waitKey(1) & 0xFF
     if(eraseFlag == False):
