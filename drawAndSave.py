@@ -9,6 +9,7 @@ height, width = frame.shape[:2]
 drawing = False # true if mouse is pressed
 mode = False # if True, draw rectangle. Press 'm' to toggle to curve
 ix,iy = -1,-1
+brushSize = 8
 
 # mouse callback function
 def draw_circle(event,x,y,flags,param):
@@ -54,6 +55,7 @@ while(1):
     b= 0
     g = 0
     r = 255
+
     for(x,y,w,h) in hand:
         #draws a rectangle around the 
         cv2.rectangle(frame,(x,y),(x+w, y+h),(b,g,r),2)
@@ -76,9 +78,29 @@ while(1):
     if saveCollision < 30:
         saveFlag = False
     
-
+    small = (600,65,0)
+    smallColX = posX - small[0]
+    smallColY = posY - small[1]
+    smallCollision = math.sqrt((smallColX * smallColX)+ (smallColY * smallColY))
+    if smallCollision < 35:
+        brushSize = 3
     
-    cv2.circle(img,(posX,posY),10,(0,0,255),-1)
+    norm = (600,100,0)#x, y coordiniates 
+    normColX = posX - norm[0]
+    normColY = posY - norm[1]
+    normCollision = math.sqrt((normColX * normColX)+ (normColY * normColY))
+    if normCollision < 35:
+        brushSize = 8
+    
+    big = (600,150,0)
+    bigColX = posX - big[0]
+    bigColY = posY - big[1]
+    bigCollision = math.sqrt((bigColX * bigColX)+ (bigColY * bigColY))
+    if bigCollision < 35:
+        brushSize = 15
+    
+    
+    cv2.circle(img,(posX,posY),brushSize,(0,0,255),-1)
     #cv2.imshow('image',img)
     k = cv2.waitKey(1) & 0xFF
     if(eraseFlag == False):
@@ -91,7 +113,7 @@ while(1):
         cv2.imwrite('test.jpg',both)
     if k == ord('c'):
         img = np.zeros((height,width,3), np.uint8)    
-    elif k == 27:
+    elif k == 27 or k == ord('q'):
         break
     
     frame = cv2.add(frame,ui)
